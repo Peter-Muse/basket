@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "6cf57f9f-e2be-4dd9-be29-7aa86b0d26a0",
+		"name": "Test for ok response, bad request and unauthorised ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login: 400 Bad request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"tboydv1@gmail.com\",\r\n    \"password\": \"123pass321\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stagingauth.herokuapp.com/auth/token/jwt",
+					"protocol": "https",
+					"host": [
+						"stagingauth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth",
+						"token",
+						"jwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login: 401 Authorized status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"tboydv1@gmail.com\",\r\n    \"password\": \"123pass321112\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stagingauth.herokuapp.com/auth/token/jwt",
+					"protocol": "https",
+					"host": [
+						"stagingauth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth",
+						"token",
+						"jwt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login: 200 ok status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json()\r",
+							"pm.test(\"Let Status code be 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"const token = response.access\r",
+							"console.log(token)\r",
+							"\r",
+							"pm.environment.set(\"variable_key\", \"variable_value\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"tboydv1@gmail.com\",\r\n    \"password\": \"123pass321\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stagingauth.herokuapp.com/auth/token/jwt",
+					"protocol": "https",
+					"host": [
+						"stagingauth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"auth",
+						"token",
+						"jwt"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Post login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"tboydv1@gmail.com\",\r\n    \"password\": \"123pass321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://lampauth.herokuapp.com/auth/token/jwt",
+							"protocol": "https",
+							"host": [
+								"lampauth",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"auth",
+								"token",
+								"jwt"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "gunicorn/20.0.4"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 15 Dec 2020 14:17:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1049"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYwODkwNTg3NSwianRpIjoiMzQxY2ZlODMxM2EwNDRjNmI5ODA3YWYyNmU0NjdiZTUiLCJ1c2VyX2lkIjoidGJveWR2MUBnbWFpbC5jb20iLCJlbWFpbCI6InRib3lkdjFAZ21haWwuY29tIiwiaWQiOjcsImltYWdlIjoiaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZGtvemRra2xnL2ltYWdlL3VwbG9hZC92MTU2NTU1Nzc1My9jbG91ZGluYXJ5X3F5aTY0OS5qcGciLCJuYW1lIjoiT2x1d2F0b2JpIE9tb3Rvc2hvIiwib3JnYW5pc2F0aW9uIjoiVE9WIGNyZWF0b3JzIiwicm9sZSI6IkNvbnRhY3QgUGVyc29uIn0.PlcWbMBiYu42KTrQEGHkvhFiHfxFct55whub-xqked0\",\n    \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA4NDczODc1LCJqdGkiOiJmODJiOWViYzhiMjc0YjUyOGU0OGEwNGQ4MTMzYjkxNiIsInVzZXJfaWQiOiJ0Ym95ZHYxQGdtYWlsLmNvbSIsImVtYWlsIjoidGJveWR2MUBnbWFpbC5jb20iLCJpZCI6NywiaW1hZ2UiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9ka296ZGtrbGcvaW1hZ2UvdXBsb2FkL3YxNTY1NTU3NzUzL2Nsb3VkaW5hcnlfcXlpNjQ5LmpwZyIsIm5hbWUiOiJPbHV3YXRvYmkgT21vdG9zaG8iLCJvcmdhbmlzYXRpb24iOiJUT1YgY3JlYXRvcnMiLCJyb2xlIjoiQ29udGFjdCBQZXJzb24ifQ.QhinR_Z7vpCrbIEDEFYE6_PbjsmM3TjDVQm8fK2icHY\"\n}"
+				},
+				{
+					"name": "Post login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"raybaba89@gmail.com\",\r\n    \"password\": \"Secure@1251\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://lampauth.herokuapp.com/auth/token/jwt",
+							"protocol": "https",
+							"host": [
+								"lampauth",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"auth",
+								"token",
+								"jwt"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "gunicorn/20.0.4"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Dec 2020 11:50:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1014"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYwODgxMDY1MSwianRpIjoiYzliN2UwM2ZmNzg0NGI3ZmE3MjYwYTAyMDM1NDZkOTIiLCJ1c2VyX2lkIjoicmF5YmFiYTg5QGdtYWlsLmNvbSIsImVtYWlsIjoicmF5YmFiYTg5QGdtYWlsLmNvbSIsImlkIjoxNDEsImltYWdlIjoiaHR0cHM6Ly9yZXMuY2xvdWRpbmFyeS5jb20vZGtvemRra2xnL2ltYWdlL3VwbG9hZC92MTU2NTU1Nzc1My9jbG91ZGluYXJ5X3F5aTY0OS5qcGciLCJuYW1lIjoiQWJlbCBSYXkiLCJvcmdhbmlzYXRpb24iOiJSYXkiLCJyb2xlIjoiQ29udGFjdCBQZXJzb24ifQ.Bg88rpw-700DHCM0xubYmVKYBg6DwYLrVyhQHSVEfFA\",\n    \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjA4Mzc4NjUxLCJqdGkiOiI5MjA0ZGQ0OTMyNjc0NGU1YTBmNjlmZDc3MWM1YWI0MCIsInVzZXJfaWQiOiJyYXliYWJhODlAZ21haWwuY29tIiwiZW1haWwiOiJyYXliYWJhODlAZ21haWwuY29tIiwiaWQiOjE0MSwiaW1hZ2UiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9ka296ZGtrbGcvaW1hZ2UvdXBsb2FkL3YxNTY1NTU3NzUzL2Nsb3VkaW5hcnlfcXlpNjQ5LmpwZyIsIm5hbWUiOiJBYmVsIFJheSIsIm9yZ2FuaXNhdGlvbiI6IlJheSIsInJvbGUiOiJDb250YWN0IFBlcnNvbiJ9.ccxjbTySTPoyd5KMlWFRjEAaGPChxegzXABBAUPr9Kc\"\n}"
+				}
+			]
+		}
+	]
+}
